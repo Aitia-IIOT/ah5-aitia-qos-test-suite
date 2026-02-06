@@ -22,3 +22,25 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+/.project
+/.settings
+/qos-cpu-test-consumer/.classpath
+/qos-cpu-test-consumer/.factorypath
+/qos-cpu-test-consumer/.project
+/qos-cpu-test-consumer/.settings/org.eclipse.core.resources.prefs
+/qos-cpu-test-consumer/.settings/org.eclipse.jdt.apt.core.prefs
+/qos-cpu-test-consumer/.settings/org.eclipse.jdt.core.prefs
+/qos-cpu-test-consumer/.settings/org.eclipse.m2e.core.prefs
+/qos-cpu-test-consumer/.settings/org.springframework.ide.eclipse.prefs
+/qos-cpu-test-consumer/experiment.db
+/qos-cpu-test-consumer/target
+/qos-shared-resources/.classpath
+/qos-shared-resources/.factorypath
+/qos-shared-resources/.project
+/qos-shared-resources/.settings/org.eclipse.core.resources.prefs
+/qos-shared-resources/.settings/org.eclipse.jdt.apt.core.prefs
+/qos-shared-resources/.settings/org.eclipse.jdt.core.prefs
+/qos-shared-resources/.settings/org.eclipse.m2e.core.prefs
+/qos-shared-resources/.settings/org.springframework.ide.eclipse.prefs
+/qos-shared-resources/target/classes
+/qos-shared-resources/target/test-classes
