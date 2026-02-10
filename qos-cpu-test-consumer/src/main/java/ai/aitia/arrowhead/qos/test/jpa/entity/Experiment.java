@@ -44,6 +44,9 @@ public class Experiment {
 	@Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
 	private boolean qosEnabled = false;
 	
+	@Column(nullable = true, length = 2048)
+	private String qosDetails;
+	
 	@Column(nullable = false)
 	private int iteration;
 	
@@ -71,6 +74,7 @@ public class Experiment {
 			final String id,
 			final String comment,
 			final boolean qosEnabled,
+			final String qosDetails,
 			final int iteration,
 			final long wait,
 			final int cpuStressPower,
@@ -79,6 +83,7 @@ public class Experiment {
 		this.id = id;
 		this.comment = comment;
 		this.qosEnabled = qosEnabled;
+		this.qosDetails = qosDetails;
 		this.iteration = iteration;
 		this.wait = wait;
 		this.cpuStressPower = cpuStressPower;
@@ -208,5 +213,15 @@ public class Experiment {
 	//-------------------------------------------------------------------------------------------------
 	public void setComment(final String comment) {
 		this.comment = comment;
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	public String getQosDetails() {
+		return qosDetails;
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	public void setQosDetails(final String qosDetails) {
+		this.qosDetails = qosDetails;
 	}
 }

@@ -30,6 +30,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
 import ai.aitia.arrowhead.Constants;
+import ai.aitia.arrowhead.qos.test.experiment.Experimenter;
 import ai.aitia.arrowhead.qos.test.mqtt.GeneralMqttClient;
 import eu.arrowhead.common.http.ArrowheadHttpService;
 import eu.arrowhead.common.model.SystemModel;
@@ -57,6 +58,9 @@ public class CpuTestConsumer implements CommandLineRunner {
 
 	@Autowired
 	private GeneralMqttClient mqttClient;
+	
+	@Autowired
+	private Experimenter experimenter;
 
 	//=================================================================================================
 	// methods
@@ -71,7 +75,8 @@ public class CpuTestConsumer implements CommandLineRunner {
 	@Override
 	public void run(final String... args) throws Exception {
 		initialize();
-		System.out.println("Run the tests");
+		experimenter.initialize();
+		experimenter.performExperiment();
 	}
 
 	//-------------------------------------------------------------------------------------------------

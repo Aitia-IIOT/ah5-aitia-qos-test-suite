@@ -17,6 +17,7 @@
 package ai.aitia.arrowhead.qos.test;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,7 @@ public class CpuTestConsumerSystemInfo extends SystemInfo {
 	// members
 
 	private SystemModel systemModel;
+	private UUID experimentId;
 
 	//=================================================================================================
 	// methods
@@ -71,6 +73,16 @@ public class CpuTestConsumerSystemInfo extends SystemInfo {
 	//-------------------------------------------------------------------------------------------------
 	public boolean isSslEnabled() {
 		return false;
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	public UUID getExperimentId() {
+		return experimentId;
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	public void setExperimentId(final UUID experimentId) {
+		this.experimentId = experimentId;
 	}
 
 	//=================================================================================================

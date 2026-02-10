@@ -33,5 +33,55 @@
     "name": "mqtt.client.password",
     "type": "java.lang.String",
     "description": "A description for 'mqtt.client.password'"
+  },
+  {
+    "name": "test.qos.enabled",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'test.qos.enabled'"
+  },
+  {
+    "name": "test.qos.metric.names",
+    "type": "java.util.List",
+    "description": "A description for 'test.qos.metricNames'"
+  },
+  {
+    "name": "test.qos.metric.weights",
+    "type": "java.util.List",
+    "description": "A description for 'test.qos.metricWeights'"
+  },
+  {
+    "name": "test.qos.time.window",
+    "type": "java.lang.Integer",
+    "description": "A description for 'test.qos.time.window'"
+  },
+  {
+    "name": "test.iteration",
+    "type": "java.lang.Integer",
+    "description": "A description for 'test.iteration'"
+  },
+  {
+    "name": "test.wait",
+    "type": "java.lang.Long",
+    "description": "A description for 'test.wait'"
+  },
+  {
+    "name": "test.cpu.stress.power",
+    "type": "java.lang.Integer",
+    "description": "A description for 'test.cpu.stress.power'"
+  },
+  {
+    "name": "test.cpu.stress.length",
+    "type": "java.lang.Long",
+    "description": "A description for 'test.cpu.stress.length'"
+  },
+  {
+    "name": "test.timeout.threshold",
+    "type": "java.lang.Long",
+    "description": "A description for 'test.timeout.threshold'"
+  },
+  {
+    "name": "test.comment",
+    "type": "java.lang.String",
+    "description": "A description for 'test.comment'"
   }
 ]}
