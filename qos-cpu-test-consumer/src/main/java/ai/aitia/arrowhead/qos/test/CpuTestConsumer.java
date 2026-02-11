@@ -32,6 +32,7 @@ import org.springframework.context.annotation.FilterType;
 import ai.aitia.arrowhead.Constants;
 import ai.aitia.arrowhead.qos.test.experiment.Experimenter;
 import ai.aitia.arrowhead.qos.test.mqtt.GeneralMqttClient;
+import ai.aitia.arrowhead.qos.test.mqtt.ResponseHandlerThread;
 import eu.arrowhead.common.http.ArrowheadHttpService;
 import eu.arrowhead.common.model.SystemModel;
 import eu.arrowhead.common.security.DefaultSecurityConfig;
@@ -60,7 +61,11 @@ public class CpuTestConsumer implements CommandLineRunner {
 	private GeneralMqttClient mqttClient;
 	
 	@Autowired
+	private ResponseHandlerThread handlerThread;
+	
+	@Autowired
 	private Experimenter experimenter;
+	
 
 	//=================================================================================================
 	// methods
@@ -77,6 +82,7 @@ public class CpuTestConsumer implements CommandLineRunner {
 		initialize();
 		experimenter.initialize();
 		experimenter.performExperiment();
+		handlerThread.stopGracefully();
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -87,6 +93,8 @@ public class CpuTestConsumer implements CommandLineRunner {
 				mqttClient.unsubscribe(MQTT_RESPONSE_TOPIC);
 				mqttClient.destroy();
 			}
+			
+			handlerThread.stopGracefully();
 		} catch (final MqttException ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();
@@ -112,5 +120,7 @@ public class CpuTestConsumer implements CommandLineRunner {
 			ex.printStackTrace();
 			throw new ConfigurationException("Can't access the MQTT broker: " + ex.getMessage());
 		}
+		
+		handlerThread.start();
 	}
 }

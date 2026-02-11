@@ -17,6 +17,7 @@
 package ai.aitia.arrowhead.qos.test.jpa.service;
 
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -90,6 +91,27 @@ public class ExperimentDbService {
 
 			final ExperimentData data = new ExperimentData(stepId.toString(), expOpt.get(), provider, start);
 			expDataRepo.saveAndFlush(data);
+		} catch (final Exception ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+			throw new InternalServerError("Database operation error");
+		}
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	@Transactional(rollbackFor = ArrowheadException.class) 
+	public void closeExperimentStep(final UUID stepId, final ZonedDateTime stop, final long threshold) {
+		try {
+			final Optional<ExperimentData> expDataOpt = expDataRepo.findById(stepId.toString());
+			if (expDataOpt.isEmpty()) {
+				throw new DataNotFoundException("Experiment data not found");
+			}
+			
+			final ExperimentData expData = expDataOpt.get();
+			if (expData.getStart().plus(threshold, ChronoUnit.MILLIS).isAfter(stop)) {
+				expData.setEnd(stop);
+				expDataRepo.saveAndFlush(expData);
+			}
 		} catch (final Exception ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();

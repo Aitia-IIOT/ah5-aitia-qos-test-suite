@@ -57,34 +57,34 @@ public class Experimenter {
 	//=================================================================================================
 	// members
 
-	@Value("test.comment:")
+	@Value("${test.comment:}")
 	private String comment;
 
-	@Value("test.qos.enabled:false")
+	@Value("${test.qos.enabled:false}")
 	private boolean qos;
 
-	@Value("test.qos.metric.names:")
+	@Value("${test.qos.metric.names:}")
 	private List<String> qosMetricNames;
 
-	@Value("test.qos.metric.weights:")
+	@Value("${test.qos.metric.weights:}")
 	private List<Double> qosMetricWeights;
 
-	@Value("test.qos.time.window:1")
+	@Value("${test.qos.time.window:1}")
 	private int qosTimeWindow;
 
-	@Value("test.iteration:10")
+	@Value("${test.iteration:10}")
 	private int iteration;
 
-	@Value("test.wait:1000")
+	@Value("${test.wait:1000}")
 	private long wait;
 
-	@Value("test.cpu.stress.power:20")
+	@Value("${test.cpu.stress.power:20}")
 	private int cpuStressPower;
 
-	@Value("test.cpu.stress.length:5000")
+	@Value("${test.cpu.stress.length:5000}")
 	private long cpuStressLenth;
 
-	@Value("test.timeout.threshold:15000")
+	@Value("${test.timeout.threshold:15000}")
 	private long timeoutThreshold;
 
 	@Autowired
@@ -218,7 +218,7 @@ public class Experimenter {
 		final UUID stepId = UUID.randomUUID();
 		dbService.addExperimentStep(systemInfo.getExperimentId(), stepId, providerName, Utilities.utcNow());
 
-		if (orchResponse != null && Utilities.isEmpty(orchResponse.results())) {
+		if (orchResponse != null && !Utilities.isEmpty(orchResponse.results())) {
 			final String topic = getTargetTopic(orchResponse.results().get(0));
 
 			final MqttRequestTemplate template = new MqttRequestTemplate(
