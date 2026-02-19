@@ -27,13 +27,14 @@
 	<modules>
 		<module>qos-shared-resources</module>
 		<module>qos-cpu-test-consumer</module>
+		<module>qos-cpu-test-provider</module>
 	</modules>
 
 	<dependencies>
 		<dependency>
 			<groupId>ai.aitia.arrowhead</groupId>
 			<artifactId>arrowhead-app-common</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
