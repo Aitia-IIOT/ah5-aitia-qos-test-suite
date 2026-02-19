@@ -17,15 +17,20 @@
 
 package ai.aitia.arrowhead.qos.test;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 import ai.aitia.arrowhead.Constants;
+import eu.arrowhead.common.security.DefaultSecurityConfig;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-@ComponentScan({ Constants.BASE_PACKAGE, Constants.COMMON_BASE_PACKAGE })
+@ComponentScan(
+		basePackages = { Constants.BASE_PACKAGE, Constants.COMMON_BASE_PACKAGE }, 
+		excludeFilters = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = { DefaultSecurityConfig.class }) })
 public class CpuTestProvider {
 
 	//=================================================================================================
@@ -33,9 +38,9 @@ public class CpuTestProvider {
 
 	//-------------------------------------------------------------------------------------------------
 	public static void main(final String[] args) {
-		SpringApplication.run(CpuTestProvider.class, args);
+		new SpringApplicationBuilder(CpuTestProvider.class).web(WebApplicationType.NONE).run(args);
 	}
-
+	
 	//=================================================================================================
 	// boilerplate
 

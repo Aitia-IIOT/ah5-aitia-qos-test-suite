@@ -28,7 +28,7 @@ import eu.arrowhead.common.mqtt.model.MqttMessageContainer;
 import jakarta.annotation.Resource;
 
 @Service
-public class GeneralMqttCallback implements MqttCallback {
+public class CpuTestConsumerMqttCallback implements MqttCallback {
 
 	//=================================================================================================
 	// members

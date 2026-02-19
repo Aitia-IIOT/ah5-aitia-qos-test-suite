@@ -44,3 +44,4 @@ replay_pid*
 /qos-shared-resources/.settings/org.springframework.ide.eclipse.prefs
 /qos-shared-resources/target/classes
 /qos-shared-resources/target/test-classes
+*.lck

@@ -31,11 +31,12 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ai.aitia.arrowhead.Constants;
+import ai.aitia.arrowhead.cpu.stress.StressConstants;
 import ai.aitia.arrowhead.cpu.stress.StressRequest;
+import ai.aitia.arrowhead.cpu.stress.mqtt.GeneralMqttClient;
 import ai.aitia.arrowhead.qos.test.CpuTestConsumer;
 import ai.aitia.arrowhead.qos.test.CpuTestConsumerSystemInfo;
 import ai.aitia.arrowhead.qos.test.jpa.service.ExperimentDbService;
-import ai.aitia.arrowhead.qos.test.mqtt.GeneralMqttClient;
 import eu.arrowhead.common.Utilities;
 import eu.arrowhead.common.exception.InternalServerError;
 import eu.arrowhead.common.http.ArrowheadHttpService;
@@ -180,7 +181,7 @@ public class Experimenter {
 	private void performStep() {
 		final OrchestrationRequestDTO.Builder orchRequestBuilder = new OrchestrationRequestDTO.Builder()
 				.serviceRequirement(new OrchestrationServiceRequirementDTO.Builder()
-						.serviceDefinition("stressCpu")
+						.serviceDefinition(StressConstants.SERVICE_DEF_STRESS_CPU)
 						.interfaceTemplateName(Constants.GENERIC_MQTT_INTERFACE_TEMPLATE_NAME)
 						.build())
 				.orchestrationFlag(OrchestrationFlag.MATCHMAKING.name(), true);
