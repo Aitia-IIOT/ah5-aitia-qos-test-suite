@@ -14,13 +14,13 @@
  *
  *******************************************************************************/
 
-package ai.aitia.arrowhead.qos.test;
+package ai.aitia.arrowhead.qos.stress;
 
 import java.util.UUID;
 
 public final class CpuTestProviderConstants {
 	
-	public static final String MQTT_SERVICE_OPERATION_TOPIC = "provider/stress/cpu" + UUID.randomUUID().toString();
+	public static final String MQTT_SERVICE_OPERATION_BASE_TOPIC = "provider/stress/cpu" + UUID.randomUUID().toString() + "/";
 
 	//=================================================================================================
 	// assistant methods

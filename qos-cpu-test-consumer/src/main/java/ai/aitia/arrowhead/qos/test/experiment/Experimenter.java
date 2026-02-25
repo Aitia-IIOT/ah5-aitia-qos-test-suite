@@ -243,6 +243,6 @@ public class Experimenter {
 	//-------------------------------------------------------------------------------------------------
 	private String getTargetTopic(final OrchestrationResultDTO orchestrationResultDTO) {
 		final ServiceInstanceInterfaceResponseDTO intf = orchestrationResultDTO.interfaces().get(0);
-		return intf.properties().get("baseTopic") + "perform";
+		return intf.properties().get("baseTopic") + StressConstants.OPERATION_PERFORM;
 	}
 }

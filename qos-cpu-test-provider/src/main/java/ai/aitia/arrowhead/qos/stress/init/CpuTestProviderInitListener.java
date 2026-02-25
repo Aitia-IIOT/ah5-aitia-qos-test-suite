@@ -14,7 +14,7 @@
  *  	Arrowhead Consortia - conceptualization
  *
  *******************************************************************************/
-package ai.aitia.arrowhead.qos.test.init;
+package ai.aitia.arrowhead.qos.stress.init;
 
 import javax.naming.ConfigurationException;
 
@@ -26,7 +26,8 @@ import org.springframework.stereotype.Component;
 import ai.aitia.arrowhead.Constants;
 import ai.aitia.arrowhead.cpu.stress.StressConstants;
 import ai.aitia.arrowhead.cpu.stress.mqtt.GeneralMqttClient;
-import ai.aitia.arrowhead.qos.test.CpuTestProviderConstants;
+import ai.aitia.arrowhead.qos.stress.CpuTestProviderConstants;
+import ai.aitia.arrowhead.qos.stress.mqtt.CpuTestProviderMqttCallback;
 import eu.arrowhead.common.init.ApplicationInitListener;
 import eu.arrowhead.dto.AuthorizationGrantRequestDTO;
 import eu.arrowhead.dto.AuthorizationPolicyRequestDTO;
@@ -58,7 +59,7 @@ public class CpuTestProviderInitListener extends ApplicationInitListener {
 	protected void customDestroy() {
 		try {
 			if (mqttClient != null) {
-				mqttClient.unsubscribe(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_TOPIC);
+				mqttClient.unsubscribe(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC);
 				mqttClient.destroy();
 			}
 			
@@ -73,7 +74,7 @@ public class CpuTestProviderInitListener extends ApplicationInitListener {
 	private void connectToMqttBroker() throws ConfigurationException {
 		try {
 			mqttClient.initialize(mqttCallback);
-			mqttClient.subscribe(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_TOPIC);
+			mqttClient.subscribe(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC);
 		} catch (final MqttException ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();

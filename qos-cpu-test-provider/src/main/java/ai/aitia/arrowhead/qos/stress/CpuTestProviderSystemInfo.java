@@ -14,19 +14,22 @@
  *  	Arrowhead Consortia - conceptualization
  *
  *******************************************************************************/
-package ai.aitia.arrowhead.qos.test;
+package ai.aitia.arrowhead.qos.stress;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
 import ai.aitia.arrowhead.Constants;
+import ai.aitia.arrowhead.cpu.stress.StressConstants;
 import eu.arrowhead.common.SystemInfo;
 import eu.arrowhead.common.Utilities;
 import eu.arrowhead.common.exception.InvalidParameterException;
 import eu.arrowhead.common.http.filter.authentication.AuthenticationPolicy;
 import eu.arrowhead.common.model.ServiceModel;
 import eu.arrowhead.common.model.SystemModel;
+import eu.arrowhead.common.mqtt.model.MqttInterfaceModel;
 
 @Component
 public class CpuTestProviderSystemInfo extends SystemInfo {
@@ -60,8 +63,15 @@ public class CpuTestProviderSystemInfo extends SystemInfo {
 	//-------------------------------------------------------------------------------------------------
 	@Override
 	public List<ServiceModel> getServices() {
-		// TODO Auto-generated method stub
-		return null;
+		final ServiceModel stressCpu = new ServiceModel.Builder()
+				.serviceDefinition(StressConstants.SERVICE_DEF_STRESS_CPU)
+				.version("1.0.0")
+				.serviceInterface(new MqttInterfaceModel.Builder(getSslProperties().isSslEnabled() ? Constants.GENERIC_MQTTS_INTERFACE_TEMPLATE_NAME : Constants.GENERIC_MQTT_INTERFACE_TEMPLATE_NAME, getMqttBrokerAddress(), getMqttBrokerPort())
+						.baseTopic(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC)
+						.operations(Set.of(StressConstants.OPERATION_PERFORM))
+						.build())
+				.build();
+		return List.of(stressCpu);
 	}
 
 	//=================================================================================================

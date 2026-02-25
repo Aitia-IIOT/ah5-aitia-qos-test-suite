@@ -15,7 +15,7 @@
  *
  *******************************************************************************/
 
-package ai.aitia.arrowhead.qos.test;
+package ai.aitia.arrowhead.qos.stress;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
