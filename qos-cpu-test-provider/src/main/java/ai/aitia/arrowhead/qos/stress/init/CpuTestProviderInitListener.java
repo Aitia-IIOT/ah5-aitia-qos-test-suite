@@ -28,6 +28,7 @@ import ai.aitia.arrowhead.cpu.stress.StressConstants;
 import ai.aitia.arrowhead.cpu.stress.mqtt.GeneralMqttClient;
 import ai.aitia.arrowhead.qos.stress.CpuTestProviderConstants;
 import ai.aitia.arrowhead.qos.stress.mqtt.CpuTestProviderMqttCallback;
+import ai.aitia.arrowhead.qos.stress.service.CpuStressServiceManager;
 import eu.arrowhead.common.init.ApplicationInitListener;
 import eu.arrowhead.dto.AuthorizationGrantRequestDTO;
 import eu.arrowhead.dto.AuthorizationPolicyRequestDTO;
@@ -43,6 +44,9 @@ public class CpuTestProviderInitListener extends ApplicationInitListener {
 	
 	@Autowired
 	private CpuTestProviderMqttCallback mqttCallback;
+	
+	@Autowired
+	private CpuStressServiceManager cpuStressServiceManager;
 
 	//=================================================================================================
 	// assistant methods
@@ -63,7 +67,7 @@ public class CpuTestProviderInitListener extends ApplicationInitListener {
 				mqttClient.destroy();
 			}
 			
-			// TODO stop handler
+			cpuStressServiceManager.stopGracefully();
 		} catch (final MqttException ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();
@@ -74,14 +78,14 @@ public class CpuTestProviderInitListener extends ApplicationInitListener {
 	private void connectToMqttBroker() throws ConfigurationException {
 		try {
 			mqttClient.initialize(mqttCallback);
-			mqttClient.subscribe(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC);
+			mqttClient.subscribe(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC + StressConstants.OPERATION_PERFORM);
 		} catch (final MqttException ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();
 			throw new ConfigurationException("Can't access the MQTT broker: " + ex.getMessage());
 		}
 		
-		// TODO start handler
+		cpuStressServiceManager.start();
 	}
 	
 	//-------------------------------------------------------------------------------------------------
