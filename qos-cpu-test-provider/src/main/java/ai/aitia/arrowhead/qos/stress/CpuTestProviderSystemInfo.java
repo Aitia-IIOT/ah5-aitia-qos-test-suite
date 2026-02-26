@@ -17,6 +17,7 @@
 package ai.aitia.arrowhead.qos.stress;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
@@ -48,7 +49,8 @@ public class CpuTestProviderSystemInfo extends SystemInfo {
 		if (systemModel == null) {
 			SystemModel.Builder builder = new SystemModel.Builder()
 					.address(getAddress())
-					.version("1.0.0");
+					.version("1.0.0")
+					.metadata("qos", Map.of("deviceAugmented", List.of("1.4", "2.1", "3.1", "3.2")));					
 
 			if (AuthenticationPolicy.CERTIFICATE == this.getAuthenticationPolicy()) {
 				builder = builder.metadata(Constants.METADATA_KEY_X509_PUBLIC_KEY, getPublicKey());
