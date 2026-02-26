@@ -1,10 +1,6 @@
 package ai.aitia.arrowhead.qos.stress.service;
 
-import java.io.IOException;
-
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,27 +33,19 @@ public class CpuStressServiceWorker implements Runnable {
 	//-------------------------------------------------------------------------------------------------
 	@Override
 	public void run() {
-		System.out.println("Executing cpu stress with traceId: " + request.traceId());
-		
 		try {
 			final StressRequest stress = mapper.readValue(mapper.writeValueAsBytes(request.payload()), StressRequest.class);
 			
-			Thread.sleep(2000);
+			System.out.println("CPU stress start. ID: " + stress.uuid());
+			final Process process = new ProcessBuilder("stress-ng", "--cpu", "0", "--cpu-load", String.valueOf(stress.power()), "--timeout", stress.length() + "s").start();
+			int exitCode = process.waitFor();
+			System.out.println("CPU stress End. ID: " + stress.uuid() + " Exit code: " + exitCode);
 			
 			mqttClient.publish(request.responseTopic(), new MqttMessage(mapper.writeValueAsBytes(new MqttResponseTemplate(200, request.traceId(), null, stress.uuid()))));
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MqttPersistenceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MqttException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (final Exception ex) {
+			System.out.println("Error occured in CpuStressServiceWorker.run()");
+			ex.printStackTrace();
 		}
 	}
 }
