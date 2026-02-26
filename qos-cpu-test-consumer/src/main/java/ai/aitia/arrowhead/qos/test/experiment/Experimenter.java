@@ -82,10 +82,10 @@ public class Experimenter {
 	@Value("${test.cpu.stress.power:20}")
 	private int cpuStressPower;
 
-	@Value("${test.cpu.stress.length:5000}")
+	@Value("${test.cpu.stress.length:5}")
 	private long cpuStressLenth;
 
-	@Value("${test.timeout.threshold:15000}")
+	@Value("${test.timeout.threshold:15}")
 	private long timeoutThreshold;
 
 	@Autowired
@@ -166,7 +166,7 @@ public class Experimenter {
 		}
 		
 		// waiting for a while (for the last responses)
-		Thread.sleep(2 * timeoutThreshold);
+		Thread.sleep(2 * timeoutThreshold * 1000);
 	}
 
 	//=================================================================================================
