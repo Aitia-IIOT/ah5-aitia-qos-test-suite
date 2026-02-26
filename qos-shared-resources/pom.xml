@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ai.aitia.arrowhead</groupId>
+		<artifactId>qos-test-suite</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>qos-shared-resources</artifactId>
+	<packaging>jar</packaging>
+	<name>QoS Test Suite Shared Resources</name>
+	<description>Shared resources of the QoS Test Suite</description>
+
+	<url>https://github.com/Aitia-IIOT/ah5-aitia-translation-test-suite</url>
+</project>
