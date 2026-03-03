@@ -13,21 +13,21 @@
  *  	AITIA
  *
  *******************************************************************************/
-package ai.aitia.arrowhead.qos.test.mqtt;
+package ai.aitia.arrowhead.cpu.stress.mqtt;
 
 import java.util.UUID;
 
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import ai.aitia.arrowhead.Constants;
-import ai.aitia.arrowhead.qos.test.CpuTestConsumerSystemInfo;
+import eu.arrowhead.common.SystemInfo;
 import eu.arrowhead.common.Utilities;
 
 @Component
@@ -39,20 +39,16 @@ public class GeneralMqttClient {
 	private static final String TCP_PREFIX = Constants.TCP + "://";
 
 	private MqttClient client = null;
-
-	@Autowired
-	private ApplicationContext appContext;
 	
 	@Autowired
-	private CpuTestConsumerSystemInfo sysInfo;
+	private SystemInfo sysInfo;
 
 	//=================================================================================================
 	// methods
 
 	//-------------------------------------------------------------------------------------------------
-	public void initialize() throws MqttException {
+	public void initialize(final MqttCallback callback) throws MqttException {
 		final MqttClient client = createAndConnect();
-		final GeneralMqttCallback callback = appContext.getBean(GeneralMqttCallback.class);
 		client.setCallback(callback);
 		this.client = client;
 	}
@@ -112,7 +108,7 @@ public class GeneralMqttClient {
 			options.setPassword(sysInfo.getMqttClientPassword().toCharArray());
 		}
 
-		final MqttClient client = new MqttClient(serverURI, "CPUTestConsumer-" + UUID.randomUUID().toString());
+		final MqttClient client = new MqttClient(serverURI, sysInfo.getSystemName() + "-" + UUID.randomUUID().toString());
 		client.connect(options);
 
 		return client;

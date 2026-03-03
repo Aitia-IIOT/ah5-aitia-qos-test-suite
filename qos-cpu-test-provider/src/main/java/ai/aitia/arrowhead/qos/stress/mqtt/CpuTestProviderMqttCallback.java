@@ -13,36 +13,58 @@
  *  	AITIA
  *
  *******************************************************************************/
-package ai.aitia.arrowhead.qos.test.mqtt;
+
+package ai.aitia.arrowhead.qos.stress.mqtt;
 
 import java.util.concurrent.BlockingQueue;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ai.aitia.arrowhead.qos.test.dto.ResponseRecord;
-import eu.arrowhead.common.Utilities;
-import eu.arrowhead.common.mqtt.model.MqttMessageContainer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ai.aitia.arrowhead.cpu.stress.StressConstants;
+import ai.aitia.arrowhead.qos.stress.CpuTestProviderConstants;
+import eu.arrowhead.dto.MqttRequestTemplate;
 import jakarta.annotation.Resource;
 
 @Service
-public class GeneralMqttCallback implements MqttCallback {
-
+public class CpuTestProviderMqttCallback implements MqttCallback {
+	
 	//=================================================================================================
 	// members
 
-	@Resource(name = "mqttResponseQueue")
-	private BlockingQueue<ResponseRecord> queue;
-
+	@Resource(name = "cpuStressRequestQueue")
+	private BlockingQueue<MqttRequestTemplate> cpuStressRequestQueue;
+	
+	@Autowired
+	private ObjectMapper mapper;
+	
 	//=================================================================================================
 	// methods
-
+	
 	//-------------------------------------------------------------------------------------------------
 	@Override
 	public void messageArrived(final String topic, final MqttMessage message) throws Exception {
-		queue.add(new ResponseRecord(Utilities.utcNow(), new MqttMessageContainer(topic, message)));
+		if (!topic.equals(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC + StressConstants.OPERATION_PERFORM)) {
+			System.out.println("Message received on an unhandled topic.: " + topic);
+			
+		} else {
+			try {
+				cpuStressRequestQueue.add(mapper.readValue(message.getPayload(), MqttRequestTemplate.class));				
+			} catch (final Exception ex) {
+				System.out.println("Message received, but it isn't a valid MqttRequestTemplate");
+			}
+		}
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	@Override
+	public void connectionLost(final Throwable cause) {
+		
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -50,8 +72,4 @@ public class GeneralMqttCallback implements MqttCallback {
 	public void deliveryComplete(final IMqttDeliveryToken token) {
 	}
 
-	//-------------------------------------------------------------------------------------------------
-	@Override
-	public void connectionLost(final Throwable cause) {
-	}
 }
