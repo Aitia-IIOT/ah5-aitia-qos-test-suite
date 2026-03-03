@@ -4,7 +4,7 @@ This test suite provides a tool for testing and demonstrating a load balancing s
 
 The project contains a consumer and a provider application system. The consumer performs service orchestration requests with or without QoS requirements for a resource-intensive service and measures the elapsed time between the service request and the service response. As providers receive an increasing number of service requests, their service execution times increase accordingly. When multiple provider system instances are available, it is expected that orchestrations including QoS requirements will result in better service execution times compared to orchestrations without QoS constraints.
 
-Check the docs of [DeviceQoSEvaluator](https://aitia-iiot.github.io/ah5-docs-java-spring/support_systems/device_qos_evaluator/)
+Check the docs of [DeviceQoSEvaluator](https://aitia-iiot.github.io/ah5-docs-java-spring/support_systems/device_qos_evaluator/).
 
 ## Provider
 
@@ -27,7 +27,8 @@ Deploy [docker images](https://aitia-iiot.github.io/ah5-docs-java-spring/home/ge
 
 #### MQTT Broker
 
-The consumer and provider systems must connect to the same MQTT broker in order to being able to reach each other. [Eclipse Mosquitto](https://mosquitto.org/) is recommended <br />
+The consumer and provider systems must connect to the same MQTT broker in order to being able to reach each other. [Eclipse Mosquitto](https://mosquitto.org/) is recommended.
+
 Note: _MQTT does not need to be enabled in the Arrowhead Core or Support systems. Communication between the framework and the consumer/providers occurs via the default HTTP protocol._
 
 #### Consumer
