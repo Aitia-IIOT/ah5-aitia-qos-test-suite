@@ -48,7 +48,7 @@ public class CpuTestProviderMqttCallback implements MqttCallback {
 	
 	//-------------------------------------------------------------------------------------------------
 	@Override
-	public void messageArrived(String topic, MqttMessage message) throws Exception {
+	public void messageArrived(final String topic, final MqttMessage message) throws Exception {
 		if (!topic.equals(CpuTestProviderConstants.MQTT_SERVICE_OPERATION_BASE_TOPIC + StressConstants.OPERATION_PERFORM)) {
 			System.out.println("Message received on an unhandled topic.: " + topic);
 			
@@ -63,13 +63,13 @@ public class CpuTestProviderMqttCallback implements MqttCallback {
 	
 	//-------------------------------------------------------------------------------------------------
 	@Override
-	public void connectionLost(Throwable cause) {
+	public void connectionLost(final Throwable cause) {
 		
 	}
 
 	//-------------------------------------------------------------------------------------------------
 	@Override
-	public void deliveryComplete(IMqttDeliveryToken token) {
+	public void deliveryComplete(final IMqttDeliveryToken token) {
 	}
 
 }
