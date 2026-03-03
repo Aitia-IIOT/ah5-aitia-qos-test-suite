@@ -22,7 +22,7 @@ The consumer system runs a configurable session in which it performs multiple or
 
 #### Local Cloud
 
-Deploy a local cloud containing the **ServiceRegistry, ConsumerAuthorization, DynamicServiceOrchestration** Core Systems and **DeviceQoSEvaluator** Support Sytem using the default [declared](https://aitia-iiot.github.io/ah5-docs-java-spring/api/authentication_policy/) authentication policy. 
+Deploy a local cloud containing the **ServiceRegistry, ConsumerAuthorization, DynamicServiceOrchestration** Core Systems and **DeviceQoSEvaluator** Support System using the default [declared](https://aitia-iiot.github.io/ah5-docs-java-spring/api/authentication_policy/) authentication policy. 
 Deploy [docker images](https://aitia-iiot.github.io/ah5-docs-java-spring/home/getting_started/docker/) or [download the executabels](https://aitia-iiot.github.io/ah5-docs-java-spring/home/getting_started/download_executables/)
 
 #### MQTT Broker
@@ -42,7 +42,7 @@ Download the exactuable from the latest [release](https://github.com/Aitia-IIOT/
 Download the exactuable from the latest [release](https://github.com/Aitia-IIOT/ah5-aitia-qos-test-suite/releases) to multipe Linux-based devices that have network access to the local cloud. 
 - Java 21 Runtime Environment is required
 - [stress-ng](https://manpages.ubuntu.com/manpages/resolute/en/man1/stress-ng.1.html) tool is required.
-- One Python3 based [device-agent](https://github.com/eclipse-arrowhead/ah5-device-qos-evaluator-java-spring/releases) is required to run on each device that hosts one or more provider.
+- One Python3 based [device-agent](https://github.com/eclipse-arrowhead/ah5-device-qos-evaluator-java-spring/releases) is required to run on each device that hosts one or more providers.
 - Customize the `application.properties` configuration file according to your environment.
   - Important: Each provider instance must have a unique system name.
 - Start the providers using the `java -jar qos-cpu-test-provider-<version>.jar` command.
