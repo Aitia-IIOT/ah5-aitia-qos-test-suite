@@ -108,7 +108,9 @@ public class ExperimentDbService {
 			}
 			
 			final ExperimentData expData = expDataOpt.get();
-			if (expData.getStart().plus(threshold, ChronoUnit.MILLIS).isAfter(stop)) {
+			System.out.println("Start: " + expData.getStart().toString());
+			System.out.println("End: " + stop.toString());
+			if (expData.getStart().plus(threshold, ChronoUnit.SECONDS).isAfter(stop)) {
 				expData.setEnd(stop);
 				expDataRepo.saveAndFlush(expData);
 			}

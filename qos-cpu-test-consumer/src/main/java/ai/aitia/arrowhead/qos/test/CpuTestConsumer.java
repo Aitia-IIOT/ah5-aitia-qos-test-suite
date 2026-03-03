@@ -30,8 +30,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
 import ai.aitia.arrowhead.Constants;
+import ai.aitia.arrowhead.cpu.stress.mqtt.GeneralMqttClient;
 import ai.aitia.arrowhead.qos.test.experiment.Experimenter;
-import ai.aitia.arrowhead.qos.test.mqtt.GeneralMqttClient;
+import ai.aitia.arrowhead.qos.test.mqtt.CpuTestConsumerMqttCallback;
 import ai.aitia.arrowhead.qos.test.mqtt.ResponseHandlerThread;
 import eu.arrowhead.common.http.ArrowheadHttpService;
 import eu.arrowhead.common.model.SystemModel;
@@ -59,6 +60,9 @@ public class CpuTestConsumer implements CommandLineRunner {
 
 	@Autowired
 	private GeneralMqttClient mqttClient;
+	
+	@Autowired
+	private CpuTestConsumerMqttCallback mqttCallback;
 	
 	@Autowired
 	private ResponseHandlerThread handlerThread;
@@ -113,7 +117,7 @@ public class CpuTestConsumer implements CommandLineRunner {
 
 		// connect to MQTT
 		try {
-			mqttClient.initialize();
+			mqttClient.initialize(mqttCallback);
 			mqttClient.subscribe(MQTT_RESPONSE_TOPIC);
 		} catch (final MqttException ex) {
 			System.out.println(ex.getMessage());

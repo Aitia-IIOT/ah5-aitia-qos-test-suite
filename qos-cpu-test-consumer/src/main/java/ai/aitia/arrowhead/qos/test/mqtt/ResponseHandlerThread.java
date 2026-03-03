@@ -48,7 +48,7 @@ public class ResponseHandlerThread extends Thread {
 	@Autowired
 	private ObjectMapper mapper;
 
-	@Value("${test.timeout.threshold:15000}")
+	@Value("${test.timeout.threshold:15}")
 	private long timeoutThreshold;
 	
 	private volatile boolean doWork = true;

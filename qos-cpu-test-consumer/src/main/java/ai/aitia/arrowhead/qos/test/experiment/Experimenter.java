@@ -31,11 +31,12 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ai.aitia.arrowhead.Constants;
+import ai.aitia.arrowhead.cpu.stress.StressConstants;
 import ai.aitia.arrowhead.cpu.stress.StressRequest;
+import ai.aitia.arrowhead.cpu.stress.mqtt.GeneralMqttClient;
 import ai.aitia.arrowhead.qos.test.CpuTestConsumer;
 import ai.aitia.arrowhead.qos.test.CpuTestConsumerSystemInfo;
 import ai.aitia.arrowhead.qos.test.jpa.service.ExperimentDbService;
-import ai.aitia.arrowhead.qos.test.mqtt.GeneralMqttClient;
 import eu.arrowhead.common.Utilities;
 import eu.arrowhead.common.exception.InternalServerError;
 import eu.arrowhead.common.http.ArrowheadHttpService;
@@ -81,10 +82,10 @@ public class Experimenter {
 	@Value("${test.cpu.stress.power:20}")
 	private int cpuStressPower;
 
-	@Value("${test.cpu.stress.length:5000}")
+	@Value("${test.cpu.stress.length:5}")
 	private long cpuStressLenth;
 
-	@Value("${test.timeout.threshold:15000}")
+	@Value("${test.timeout.threshold:15}")
 	private long timeoutThreshold;
 
 	@Autowired
@@ -165,7 +166,7 @@ public class Experimenter {
 		}
 		
 		// waiting for a while (for the last responses)
-		Thread.sleep(2 * timeoutThreshold);
+		Thread.sleep(2 * timeoutThreshold * 1000);
 	}
 
 	//=================================================================================================
@@ -180,7 +181,7 @@ public class Experimenter {
 	private void performStep() {
 		final OrchestrationRequestDTO.Builder orchRequestBuilder = new OrchestrationRequestDTO.Builder()
 				.serviceRequirement(new OrchestrationServiceRequirementDTO.Builder()
-						.serviceDefinition("stressCpu")
+						.serviceDefinition(StressConstants.SERVICE_DEF_STRESS_CPU)
 						.interfaceTemplateName(Constants.GENERIC_MQTT_INTERFACE_TEMPLATE_NAME)
 						.build())
 				.orchestrationFlag(OrchestrationFlag.MATCHMAKING.name(), true);
@@ -242,6 +243,6 @@ public class Experimenter {
 	//-------------------------------------------------------------------------------------------------
 	private String getTargetTopic(final OrchestrationResultDTO orchestrationResultDTO) {
 		final ServiceInstanceInterfaceResponseDTO intf = orchestrationResultDTO.interfaces().get(0);
-		return intf.properties().get("baseTopic") + "perform";
+		return intf.properties().get("baseTopic") + StressConstants.OPERATION_PERFORM;
 	}
 }
