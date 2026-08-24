@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>ai.aitia.arrowhead</groupId>
 	<artifactId>qos-test-suite</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>pom</packaging>
 	<name>ah5-aitia-qos-test-suite</name>
 	<description>Simple applications for testing AH5 default QoS evaluator</description>
@@ -33,13 +33,13 @@
 		<dependency>
 			<groupId>ai.aitia.arrowhead</groupId>
 			<artifactId>arrowhead-app-common</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>eu.arrowhead</groupId>
 			<artifactId>arrowhead-data-transfer-objects</artifactId>
-			<version>5.2.0</version>
+			<version>5.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

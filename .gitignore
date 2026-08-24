@@ -44,3 +44,6 @@ replay_pid*
 /qos-shared-resources/.settings/org.springframework.ide.eclipse.prefs
 /qos-shared-resources/target/classes
 /qos-shared-resources/target/test-classes
+/qos-shared-resources/target/maven-archiver
+/qos-shared-resources/target/maven-status/maven-compiler-plugin/compile/default-compile
+/qos-shared-resources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile
