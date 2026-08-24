@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ai.aitia.arrowhead</groupId>
+		<artifactId>qos-test-suite</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>qos-cpu-test-provider</artifactId>
+	<packaging>jar</packaging>
+	<name>CpuTestProvider</name>
+	<description>Simple system to test QoS capabilities by providing a CPU-heavy service.</description>
+
+	<url>https://github.com/Aitia-IIOT/ah5-aitia-qos-test-suite</url>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>application.properties</include>
+										<include>log4j2.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>ai.aitia.arrowhead</groupId>
+			<artifactId>qos-shared-resources</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+</project>
